@@ -26,6 +26,10 @@ RUN set -x \
 
 ENV PATH /opt/logstash/bin:$PATH
 
+RUN curl -SL http://geolite.maxmind.com/download/geoip/database/GeoLiteCityv6-beta/GeoLiteCityv6.dat.gz | gunzip -c > /opt/logstash/vendor/bundle/jruby/1.9/gems/logstash-filter-geoip-1.0.1/vendor/GeoLiteCityv6.dat
+
+COPY geoip.rb /opt/logstash/vendor/bundle/jruby/1.9/gems/logstash-filter-geoip-1.0.1/lib/logstash/filters/geoip.rb
+
 COPY ./docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
